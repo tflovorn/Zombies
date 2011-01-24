@@ -6,12 +6,12 @@ function Character(x,y,drawx,drawy,speed,image_name)
     this.drawy=drawy;
     this.speed=speed;
     this.image_name=image_name;
+    this.character = new Image();
+    this.character.src = this.image_name;
     this.Draw=function()
     {
-        var character=new Image();
-        character.src=this.image_name;
-
-        context.drawImage(character,this.drawx,this.drawy,50,50,this.x,this.y,50,50);
+        context.drawImage(this.character,this.drawx,this.drawy,50,50,this.x,
+                          this.y,50,50);
     };
     this.Update=function()
     {

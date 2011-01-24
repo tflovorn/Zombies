@@ -30,24 +30,20 @@
             var next_bullet=0;
             
             var bullet_array=new Array(100);
-            //var bullet;
-            //for (var i=0;i<10;++i)
-            //{
-            //}
-            
+            var bullet_image = new Image();
+            bullet_image.src = "images/bullet.png";
+
             var zombie_array=new Array(100);
             var zombie;
             for (var i=0;i<10;++i)
             {
                 for (var j=0;j<10;++j)
                 {
-                    //zombie=new Character(i*100,j*100,0,0,1/(i+j)+.1,50,50,"images/zombie.png");
                     zombie=new Character(i*100,j*100,0,0,1/(i+j)+.1,"images/zombie.png");
                     zombie_array[i*10+j]=zombie;
                 }
             }
             var player=new Character(100,300,0,0,3,"images/player.png");
-            //var player=new Character(100,300,0,0,3,50,50,"images/player.png");
             
             Init_Game("game_canvas");
             window.addEventListener("keydown",doKeyDown,true);
