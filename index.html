@@ -12,7 +12,6 @@
         <canvas id="game_canvas" width="800" height="480" style="border-style:solid;background:blue">
         </canvas>
         <script>
-        
             var canvas = document.getElementById("game_canvas");
             var context = canvas.getContext("2d");
 
@@ -32,6 +31,8 @@
             var bullet_array=new Array(100);
             var bullet_image = new Image();
             bullet_image.src = "images/bullet.png";
+            // for each press of space, only shoot one bullet
+            var newBulletOK = true;
 
             var zombie_array=new Array(100);
             var zombie;

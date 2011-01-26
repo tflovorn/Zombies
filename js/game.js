@@ -4,7 +4,8 @@ function Init_Game(canvasElement) {
 }
 function Update()
 {
-    if(keyArray[keyEnum.W_Key] == true)
+    // setting player.drawx/drawy changes direction player image is facing
+    if(keyArray[keyEnum.W_Key])
     {
         if (player.y - player.speed > 0){
             player.y -= player.speed ;
@@ -12,7 +13,7 @@ function Update()
         player.drawx=0;
         player.drawy=50;
     }
-    else if(keyArray[keyEnum.S_Key] == true)
+    else if(keyArray[keyEnum.S_Key])
     {
         if (player.y + player.speed  < HEIGHT){
             player.y += player.speed ;
@@ -20,7 +21,7 @@ function Update()
         player.drawx=0;
         player.drawy=0;
     }
-    else if(keyArray[keyEnum.A_Key] == true)
+    else if(keyArray[keyEnum.A_Key])
     {
         if (player.x - player.speed  > 0){
             player.x -= player.speed ;
@@ -28,7 +29,7 @@ function Update()
         player.drawx=0;
         player.drawy=100;
     }
-    else if(keyArray[keyEnum.D_Key] == true)
+    else if(keyArray[keyEnum.D_Key])
     {
         if (player.x + player.speed  < WIDTH){
             player.x += player.speed ;
@@ -36,28 +37,29 @@ function Update()
         player.drawx=0;
         player.drawy=150;
     }
-    if(keyArray[keyEnum.Space_Key] == true)
+    if(keyArray[keyEnum.Space_Key] && newBulletOK)
     {
+        var bullet;
         switch (player.direction) {
             case "north":
-                var bullet=new Bullet(player.x,player.y,0,-5,5,5,"images/bullet.png");
+                bullet=new Bullet(player.x,player.y,0,-5,5,5,"images/bullet.png");
                 break;
             case "south":
-                var bullet=new Bullet(player.x,player.y,0,5,5,5,"images/bullet.png");
+                bullet=new Bullet(player.x,player.y,0,5,5,5,"images/bullet.png");
                 break;
             case "west":
-                var bullet=new Bullet(player.x,player.y,-5,0,5,5,"images/bullet.png");
+                bullet=new Bullet(player.x,player.y,-5,0,5,5,"images/bullet.png");
                 break;
             case "east":
-                var bullet=new Bullet(player.x,player.y,5,0,5,5,"images/bullet.png");
+                bullet=new Bullet(player.x,player.y,5,0,5,5,"images/bullet.png");
                 break;
         }
         bullet_array[next_bullet++]=bullet;
-        
         if(next_bullet==100)
         {
             next_bullet=0;
         }
+        newBulletOK = False;
     }
     for (var i=0;i<100;++i)
     {
@@ -80,6 +82,7 @@ function Update()
         }
     }
 }
+
 function Draw() {   
     context.clearRect(0, 0, WIDTH, HEIGHT);
 
@@ -106,8 +109,6 @@ function Intersects(first,second)
         return true;
     }
 }
-
-
 
 function doKeyDown(evt){
     switch (evt.keyCode) {
@@ -148,6 +149,7 @@ function doKeyUp(evt){
             break;
         case 32:  /* Space key was let up */
             keyArray[keyEnum.Space_Key] = false;
+            newBulletOK = true;
             break;
     }
 }
