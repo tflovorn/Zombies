@@ -99,14 +99,14 @@ function Draw() {
 
 function Intersects(first,second)
 {
-    if(first.x+first.width<second.x || first.x>second.x+second.width
-        || first.y+first.height<second.y || first.y>second.y+second.height)
+    if((first.x<second.x+second.width) && (first.x+first.width>second.x)
+        && (first.y<second.y+second.height) && (first.y+first.height>second.y))
     {
-        return false;
+        return true;
     }
     else
     {
-        return true;
+        return false;
     }
 }
 
