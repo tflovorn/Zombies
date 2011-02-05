@@ -30,7 +30,8 @@ function Init_Game() {
     {
         for (var j=0;j<10;++j)
         {
-            zombie=new Character(i*100,j*100,0,0,1/(i+j)+.1,"images/zombie.png");
+            zombie=new Character(i * 100, j * 100, 0, 0, 1/(i+j)+.1, 
+                                 "images/zombie.png");
             zombie_array[i*10+j]=zombie;
         }
     }
@@ -83,16 +84,20 @@ function Update()
         var bullet;
         switch (player.direction) {
             case "north":
-                bullet=new Bullet(player.x,player.y,0,-5,5,5,"images/bullet.png");
+                bullet=new Bullet(player.x, player.y, 0, -5, 5, 5, 
+                                  "images/bullet.png");
                 break;
             case "south":
-                bullet=new Bullet(player.x,player.y,0,5,5,5,"images/bullet.png");
+                bullet=new Bullet(player.x, player.y, 0, 5, 5, 5, 
+                                  "images/bullet.png");
                 break;
             case "west":
-                bullet=new Bullet(player.x,player.y,-5,0,5,5,"images/bullet.png");
+                bullet=new Bullet(player.x, player.y, -5, 0, 5, 5, 
+                                  "images/bullet.png");
                 break;
             case "east":
-                bullet=new Bullet(player.x,player.y,5,0,5,5,"images/bullet.png");
+                bullet=new Bullet(player.x, player.y, 5, 0, 5, 5, 
+                                  "images/bullet.png");
                 break;
         }
         bullet_array[next_bullet++]=bullet;

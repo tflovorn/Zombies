@@ -10,8 +10,8 @@ function Character(x,y,drawx,drawy,speed,image_name)
     this.character.src = this.image_name;
     this.Draw=function()
     {
-        context.drawImage(this.character,this.drawx,this.drawy,50,50,this.x,
-                          this.y,50,50);
+        context.drawImage(this.character, this.drawx, this.drawy, 50, 50, 
+                          this.x, this.y, 50, 50);
     };
     this.Update=function()
     {

@@ -9,7 +9,8 @@ function Bullet(x,y,speedx, speedy,width,height,image_name)
     this.image_name=image_name;
     this.Draw=function()
     {
-        context.drawImage(bullet_image,0,0,width,height,this.x,this.y,width,height);
+        context.drawImage(bullet_image, 0, 0, width, height, this.x, this.y, 
+                          width, height);
     };
     this.Update=function()
     {
