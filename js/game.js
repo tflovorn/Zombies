@@ -1,6 +1,6 @@
 window.addEventListener("load", Init_Game, false);
 
-var WIDTH = 800, HEIGHT = 480;
+var WIDTH = 800, HEIGHT = 480,
     canvas, context,
     keyEnum, keyArray,
     next_bullet, bullet_array, bullet_image,
