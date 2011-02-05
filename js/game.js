@@ -2,6 +2,7 @@ function Init_Game(canvasElement) {
     setInterval("Draw()", 10);
     setInterval("Update()", 10);
 }
+
 function Update()
 {
     // setting player.drawx/drawy changes direction player image is facing
@@ -37,7 +38,7 @@ function Update()
         player.drawx=0;
         player.drawy=150;
     }
-    if(keyArray[keyEnum.Space_Key] && newBulletOK)
+    if(keyArray[keyEnum.Space_Key])
     {
         var bullet;
         switch (player.direction) {
@@ -59,7 +60,6 @@ function Update()
         {
             next_bullet=0;
         }
-        newBulletOK = False;
     }
     for (var i=0;i<100;++i)
     {
@@ -149,7 +149,6 @@ function doKeyUp(evt){
             break;
         case 32:  /* Space key was let up */
             keyArray[keyEnum.Space_Key] = false;
-            newBulletOK = true;
             break;
     }
 }
