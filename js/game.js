@@ -3,7 +3,7 @@ window.addEventListener("load", Init_Game, false);
 var WIDTH = 800, HEIGHT = 480,
     canvas, context,
     keyEnum, keyArray,
-    next_bullet, bullet_array, bullet_image,
+    bullet_array, bullet_image,
     zombie_array, player;
 
 function Init_Game() {
@@ -17,8 +17,6 @@ function Init_Game() {
     keyArray[2]=false;
     keyArray[3]=false;
     keyArray[4]=false;
-            
-    next_bullet=0;
             
     bullet_array = [];
     bullet_image = new Image();
@@ -85,22 +83,21 @@ function Update()
         switch (player.direction) {
             case "north":
                 bullet=new Bullet(player.x, player.y, 0, -5, 5, 5, 
-                                  "images/bullet.png", next_bullet);
+                                  "images/bullet.png");
                 break;
             case "south":
                 bullet=new Bullet(player.x, player.y, 0, 5, 5, 5, 
-                                  "images/bullet.png", next_bullet);
+                                  "images/bullet.png");
                 break;
             case "west":
                 bullet=new Bullet(player.x, player.y, -5, 0, 5, 5, 
-                                  "images/bullet.png", next_bullet);
+                                  "images/bullet.png");
                 break;
             case "east":
                 bullet=new Bullet(player.x, player.y, 5, 0, 5, 5, 
-                                  "images/bullet.png", next_bullet);
+                                  "images/bullet.png");
                 break;
         }
-        next_bullet++;
         bullet_array.push(bullet);
     }
     for (var i=0; i < zombie_array.length; ++i)
@@ -127,11 +124,11 @@ function Draw() {
     context.clearRect(0, 0, WIDTH, HEIGHT);
 
     player.Draw();
-    for (var i=0;i<100;++i)
+    for (var i=0;i < zombie_array.length; ++i)
     {
         zombie_array[i].Draw();
     }
-    for (var i=0;i<next_bullet;++i)
+    for (var i=0;i < bullet_array.length; ++i)
     {
         bullet_array[i].Draw();
     }

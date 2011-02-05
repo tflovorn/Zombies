@@ -1,4 +1,4 @@
-function Bullet(x, y, speedx, speedy, width, height, image_name, id)
+function Bullet(x, y, speedx, speedy, width, height, image_name)
 {
     this.x = x;
     this.y = y;
@@ -7,7 +7,6 @@ function Bullet(x, y, speedx, speedy, width, height, image_name, id)
     this.width = width;
     this.height = height;
     this.image_name = image_name;
-    this.id = id;
     this.Draw = function()
     {
         context.drawImage(bullet_image, 0, 0, width, height, this.x, this.y, 
