@@ -20,7 +20,7 @@ function Init_Game() {
             
     next_bullet=0;
             
-    bullet_array=new Array(100);
+    bullet_array = [];
     bullet_image = new Image();
     bullet_image.src = "images/bullet.png";
 
@@ -85,43 +85,38 @@ function Update()
         switch (player.direction) {
             case "north":
                 bullet=new Bullet(player.x, player.y, 0, -5, 5, 5, 
-                                  "images/bullet.png");
+                                  "images/bullet.png", next_bullet);
                 break;
             case "south":
                 bullet=new Bullet(player.x, player.y, 0, 5, 5, 5, 
-                                  "images/bullet.png");
+                                  "images/bullet.png", next_bullet);
                 break;
             case "west":
                 bullet=new Bullet(player.x, player.y, -5, 0, 5, 5, 
-                                  "images/bullet.png");
+                                  "images/bullet.png", next_bullet);
                 break;
             case "east":
                 bullet=new Bullet(player.x, player.y, 5, 0, 5, 5, 
-                                  "images/bullet.png");
+                                  "images/bullet.png", next_bullet);
                 break;
         }
-        bullet_array[next_bullet++]=bullet;
-        if(next_bullet==100)
-        {
-            next_bullet=0;
-        }
+        next_bullet++;
+        bullet_array.push(bullet);
     }
-    for (var i=0;i<100;++i)
+    for (var i=0; i < zombie_array.length; ++i)
     {
         zombie_array[i].Update();
     }
-    for (var i=0;i<next_bullet;++i)
+    for (var i=0; i < bullet_array.length; ++i)
     {
         bullet_array[i].Update();
-        for (var j=0;j<100;++j)
+        for (var j=0; j < zombie_array.length; ++j)
         {
             if(Intersects(bullet_array[i],zombie_array[j]))
             {
                 zombie_array[j].x=-60;
                 zombie_array[j].speed=0;
-                bullet_array[i].x=-160;
-                bullet_array[i].speedx=0;
-                bullet_array[i].speedy=0;  
+                bullet_array.splice(i, 1);
                 break;
             }
         }
