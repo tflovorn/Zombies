@@ -30,12 +30,12 @@ function Init_Game() {
     {
         for (var j=0;j<10;++j)
         {
-            zombie=new Character(i * 100, j * 100, 0, 0, 1/(i+j)+.1, 
+            zombie=new Character(i * 100, j * 100, 0, 0, 50, 50, 1/(i+j) + .1, 
                                  "images/zombie.png");
             zombie_array[i*10+j]=zombie;
         }
     }
-    player=new Character(100,300,0,0,3,"images/player.png");
+    player=new Character(100, 300, 0, 0, 50, 50, 3, "images/player.png");
             
     window.addEventListener("keydown",doKeyDown,true);
     window.addEventListener("keyup",doKeyUp,true);

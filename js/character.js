@@ -1,19 +1,21 @@
-function Character(x,y,drawx,drawy,speed,image_name)
+function Character(x,y,drawx,drawy,width,height,speed,image_name)
 {
-    this.x=x;
-    this.y=y;
-    this.drawx=drawx;
-    this.drawy=drawy;
-    this.speed=speed;
-    this.image_name=image_name;
+    this.x = x;
+    this.y = y;
+    this.drawx = drawx;
+    this.drawy = drawy;
+    this.width = width;
+    this.height = height;
+    this.speed = speed;
+    this.image_name = image_name;
     this.character = new Image();
     this.character.src = this.image_name;
-    this.Draw=function()
+    this.Draw = function()
     {
         context.drawImage(this.character, this.drawx, this.drawy, 50, 50, 
                           this.x, this.y, 50, 50);
     };
-    this.Update=function()
+    this.Update = function()
     {
         if (player.x>this.x)
         {
