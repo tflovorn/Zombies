@@ -3,7 +3,7 @@ window.addEventListener("load", Init_Game, false);
 var WIDTH = 800, HEIGHT = 480,
     canvas, context, keyEnum, keyArray,
     bullet_array, bullet_image, zombie_array, player,
-    mouse_position, mouse_down;
+    mouse_x, mouse_y, mouse_down;
 
 function Init_Game() {
     canvas = document.getElementById("game_canvas");
@@ -84,25 +84,9 @@ function Update()
     }
     if(mouse_down)
     {
-        var bullet;
-        switch (player.direction) {
-            case "north":
-                bullet=new Bullet(player.x, player.y, 0, -5, 5, 5, 
-                                  "images/bullet.png");
-                break;
-            case "south":
-                bullet=new Bullet(player.x, player.y, 0, 5, 5, 5, 
-                                  "images/bullet.png");
-                break;
-            case "west":
-                bullet=new Bullet(player.x, player.y, -5, 0, 5, 5, 
-                                  "images/bullet.png");
-                break;
-            case "east":
-                bullet=new Bullet(player.x, player.y, 5, 0, 5, 5, 
-                                  "images/bullet.png");
-                break;
-        }
+        var bullet = new Bullet(player.x + player.width / 2, 
+                                player.y + player.height / 2, 
+                                mouse_x, mouse_y, 5, 5, 5, "images/bullet.png");
         bullet_array.push(bullet);
     }
     for (var i=0; i < zombie_array.length; ++i)
@@ -221,7 +205,9 @@ function doMouseUp(mouseEvent) {
 
 // mouse changed position
 function doMouseMove(mouseEvent) {
-    mouse_position = getCursorPosition(mouseEvent);
+    var mouse_pos = getCursorPosition(mouseEvent);
+    mouse_x = mouse_pos[0];
+    mouse_y = mouse_pos[1];
 }
 
 // Code pulled straight from Dive Into HTML5 (Halma)
@@ -238,7 +224,7 @@ function getCursorPosition(mouseEvent) {
         y = mouseEvent.clientY + document.body.scrollTop 
                 + document.documentElement.scrollTop;
     }
-    x -= gCanvas.offsetLeft;
-    y -= gCanvas.offsetTop;
+    x -= canvas.offsetLeft;
+    y -= canvas.offsetTop;
     return [x, y];
 }
