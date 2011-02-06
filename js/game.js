@@ -55,7 +55,7 @@ function Update()
     }
     else if(keyArray[keyEnum.S_Key])
     {
-        if (player.y + player.speed  < HEIGHT){
+        if (player.y + player.height + player.speed < HEIGHT){
             player.y += player.speed ;
         }
         player.drawx=0;
@@ -63,7 +63,7 @@ function Update()
     }
     else if(keyArray[keyEnum.A_Key])
     {
-        if (player.x - player.speed  > 0){
+        if (player.x - player.speed > 0){
             player.x -= player.speed ;
         }
         player.drawx=0;
@@ -71,7 +71,7 @@ function Update()
     }
     else if(keyArray[keyEnum.D_Key])
     {
-        if (player.x + player.speed  < WIDTH){
+        if (player.x + player.width + player.speed < WIDTH){
             player.x += player.speed ;
         }
         player.drawx=0;
@@ -107,15 +107,28 @@ function Update()
     for (var i=0; i < bullet_array.length; ++i)
     {
         bullet_array[i].Update();
+        var bullet_alive = true;
+        // check for zombie intersections
         for (var j=0; j < zombie_array.length; ++j)
         {
             if(Intersects(bullet_array[i],zombie_array[j]))
             {
+                // remove the zombie
                 zombie_array[j].x=-60;
                 zombie_array[j].speed=0;
+                // remove the bullet
                 bullet_array.splice(i, 1);
+                bullet_alive = false;
                 break;
             }
+        }
+        if (!bullet_alive) continue;
+        // check if the bullet has gone out of bounds
+        if ((bullet_array[i].x < 0) || (bullet_array[i].x > WIDTH) ||
+            (bullet_array[i].y < 0) || (bullet_array[i].y > HEIGHT))
+        {
+            // remove the bullet
+            bullet_array.splice(i, 1);
         }
     }
 }
