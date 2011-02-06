@@ -1,7 +1,7 @@
 window.addEventListener("load", Init_Game, false);
 
 var WIDTH = 800, HEIGHT = 480,
-    canvas, context, keyEnum, keyArray,
+    canvas, context, keyDict,
     bullet_array, bullet_image, zombie_array, player,
     mouse_x, mouse_y, mouse_down;
 
@@ -11,13 +11,7 @@ function Init_Game() {
     
     mouse_down = false;
 
-    keyEnum = { W_Key:0, A_Key:1, S_Key:2, D_Key:3, Space_Key:4};
-    keyArray=new Array(5);
-    keyArray[0]=false;
-    keyArray[1]=false;
-    keyArray[2]=false;
-    keyArray[3]=false;
-    keyArray[4]=false;
+    keyDict = {"W": false, "S": false, "A": false, "D": false};
             
     bullet_array = [];
     bullet_image = new Image();
@@ -50,7 +44,7 @@ function Init_Game() {
 function Update()
 {
     // setting player.drawx/drawy changes direction player image is facing
-    if(keyArray[keyEnum.W_Key])
+    if(keyDict["W"])
     {
         if (player.y - player.speed > 0){
             player.y -= player.speed ;
@@ -58,7 +52,7 @@ function Update()
         player.drawx=0;
         player.drawy=50;
     }
-    else if(keyArray[keyEnum.S_Key])
+    else if(keyDict["S"])
     {
         if (player.y + player.height + player.speed < HEIGHT){
             player.y += player.speed ;
@@ -66,7 +60,7 @@ function Update()
         player.drawx=0;
         player.drawy=0;
     }
-    else if(keyArray[keyEnum.A_Key])
+    else if(keyDict["A"])
     {
         if (player.x - player.speed > 0){
             player.x -= player.speed ;
@@ -74,7 +68,7 @@ function Update()
         player.drawx=0;
         player.drawy=100;
     }
-    else if(keyArray[keyEnum.D_Key])
+    else if(keyDict["D"])
     {
         if (player.x + player.width + player.speed < WIDTH){
             player.x += player.speed ;
@@ -82,7 +76,7 @@ function Update()
         player.drawx=0;
         player.drawy=150;
     }
-    if(mouse_down)
+    if (mouse_down)
     {
         var bullet = new Bullet(player.x + player.width / 2, 
                                 player.y + player.height / 2, 
@@ -150,47 +144,25 @@ function Intersects(first,second)
 }
 
 function doKeyDown(evt) {
-    switch (evt.keyCode) {
-        case 87:  /* W arrow was pressed */
-            keyArray[keyEnum.W_Key] = true;
-            player.direction="north";
-            break;
-        case 83:  /* S arrow was pressed */
-            keyArray[keyEnum.S_Key] = true;
-            player.direction="south";
-            break;
-        case 65:  /* A key was pressed */
-            keyArray[keyEnum.A_Key] = true;
-            player.direction="west";
-            break;
-        case 68:  /* D key was pressed */
-            keyArray[keyEnum.D_Key] = true;
-            player.direction="east";
-            break;
-        case 32:  /* Space key was pressed */
-            keyArray[keyEnum.Space_Key] = true;
-            break;
-    }
+    keyDict[getKeyValue(evt)] = true;
 }
 
 function doKeyUp(evt) {
-    switch (evt.keyCode) {
-        case 87:  /* W arrow was let up */
-            keyArray[keyEnum.W_Key] = false;
-            break;
-        case 83:  /* S arrow was let up */
-            keyArray[keyEnum.S_Key] = false;
-            break;
-        case 65:  /* A key was let up */
-            keyArray[keyEnum.A_Key] = false;
-            break;
-        case 68:  /* D key was let up */
-            keyArray[keyEnum.D_Key] = false;
-            break;
-        case 32:  /* Space key was let up */
-            keyArray[keyEnum.Space_Key] = false;
-            break;
+    keyDict[getKeyValue(evt)] = false;
+}
+
+// Extract the string corresponding to the key pressed.
+function getKeyValue(keyEvent) {
+    var keyCode;
+    // IE support
+    if (event.which == undefined) {
+        keyCode = keyEvent.keyCode;
     }
+    // everyone else
+    else {
+        keyCode = keyEvent.which;
+    }
+    return String.fromCharCode(keyCode);
 }
 
 // mouse button just went down
