@@ -6,18 +6,24 @@ var WIDTH = 800, HEIGHT = 480,
     mouse_x, mouse_y, mouse_down;
 
 function Init_Game() {
+    if (!document.createElement('canvas').getContext) {
+        alert("This browser doesn't support canvas!");
+        return;
+    }
     canvas = document.getElementById("game_canvas");
     context = canvas.getContext("2d");
     
     mouse_down = false;
 
+    // keys accepted as input need to be here to initialize them before they
+    // get checked
     keyDict = {"W": false, "S": false, "A": false, "D": false};
             
     bullet_array = [];
     bullet_image = new Image();
     bullet_image.src = "images/bullet.png";
 
-    zombie_array=new Array(100);
+    zombie_array = [];
     var zombie;
     for (var i=0;i<10;++i)
     {
@@ -25,7 +31,7 @@ function Init_Game() {
         {
             zombie=new Character(i * 100, j * 100, 0, 0, 50, 50, 1/(i+j) + .1, 
                                  "images/zombie.png");
-            zombie_array[i*10+j]=zombie;
+            zombie_array.push(zombie);
         }
     }
     player=new Character(100, 300, 0, 0, 50, 50, 3, "images/player.png");
@@ -144,11 +150,11 @@ function Intersects(first,second)
 }
 
 function doKeyDown(evt) {
-    keyDict[getKeyValue(evt)] = true;
+    keyDict[getKeyValue(evt).toUpperCase()] = true;
 }
 
 function doKeyUp(evt) {
-    keyDict[getKeyValue(evt)] = false;
+    keyDict[getKeyValue(evt).toUpperCase()] = false;
 }
 
 // Extract the string corresponding to the key pressed.
