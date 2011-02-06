@@ -1,15 +1,16 @@
 window.addEventListener("load", Init_Game, false);
 
 var WIDTH = 800, HEIGHT = 480,
-    canvas, context,
-    keyEnum, keyArray,
-    bullet_array, bullet_image,
-    zombie_array, player;
+    canvas, context, keyEnum, keyArray,
+    bullet_array, bullet_image, zombie_array, player,
+    mouse_position, mouse_down;
 
 function Init_Game() {
     canvas = document.getElementById("game_canvas");
     context = canvas.getContext("2d");
-            
+    
+    mouse_down = false;
+
     keyEnum = { W_Key:0, A_Key:1, S_Key:2, D_Key:3, Space_Key:4};
     keyArray=new Array(5);
     keyArray[0]=false;
@@ -34,9 +35,13 @@ function Init_Game() {
         }
     }
     player=new Character(100, 300, 0, 0, 50, 50, 3, "images/player.png");
+    player.direction = "south";
             
     window.addEventListener("keydown",doKeyDown,true);
     window.addEventListener("keyup",doKeyUp,true);
+    canvas.addEventListener("mousedown", doMouseDown, false);
+    canvas.addEventListener("mouseup", doMouseUp, false);
+    canvas.addEventListener("mousemove", doMouseMove, false);
 
     setInterval("Draw()", 10);
     setInterval("Update()", 10);
@@ -77,7 +82,7 @@ function Update()
         player.drawx=0;
         player.drawy=150;
     }
-    if(keyArray[keyEnum.Space_Key])
+    if(mouse_down)
     {
         var bullet;
         switch (player.direction) {
@@ -160,7 +165,7 @@ function Intersects(first,second)
     }
 }
 
-function doKeyDown(evt){
+function doKeyDown(evt) {
     switch (evt.keyCode) {
         case 87:  /* W arrow was pressed */
             keyArray[keyEnum.W_Key] = true;
@@ -183,7 +188,8 @@ function doKeyDown(evt){
             break;
     }
 }
-function doKeyUp(evt){
+
+function doKeyUp(evt) {
     switch (evt.keyCode) {
         case 87:  /* W arrow was let up */
             keyArray[keyEnum.W_Key] = false;
@@ -201,4 +207,38 @@ function doKeyUp(evt){
             keyArray[keyEnum.Space_Key] = false;
             break;
     }
+}
+
+// mouse button just went down
+function doMouseDown(mouseEvent) {
+    mouse_down = true;
+}
+
+// mouse button just went up
+function doMouseUp(mouseEvent) {
+    mouse_down = false;
+}
+
+// mouse changed position
+function doMouseMove(mouseEvent) {
+    mouse_position = getCursorPosition(mouseEvent);
+}
+
+// Code pulled straight from Dive Into HTML5 (Halma)
+// Unsure which browsers don't support pageX/pageY.
+function getCursorPosition(mouseEvent) {
+    var x, y;
+    if (mouseEvent.pageX != undefined && mouseEvent.pageY != undefined) {
+        x = mouseEvent.pageX;
+        y = mouseEvent.pageY;
+    }
+    else {
+        x = mouseEvent.clientX + document.body.scrollLeft 
+                + document.documentElement.scrollLeft;
+        y = mouseEvent.clientY + document.body.scrollTop 
+                + document.documentElement.scrollTop;
+    }
+    x -= gCanvas.offsetLeft;
+    y -= gCanvas.offsetTop;
+    return [x, y];
 }
