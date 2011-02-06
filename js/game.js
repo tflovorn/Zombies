@@ -20,8 +20,13 @@ function Init_Game() {
     keyDict = {"W": false, "S": false, "A": false, "D": false};
             
     bullet_array = [];
+
     bullet_image = new Image();
     bullet_image.src = "images/bullet.png";
+    var player_image = new Image();
+    player_image.src = "images/player.png";
+    var zombie_image = new Image();
+    zombie_image.src = "images/zombie.png";
 
     zombie_array = [];
     var zombie;
@@ -30,11 +35,11 @@ function Init_Game() {
         for (var j=0;j<10;++j)
         {
             zombie=new Character(i * 100, j * 100, 0, 0, 50, 50, 1/(i+j) + .1, 
-                                 "images/zombie.png");
+                                 zombie_image);
             zombie_array.push(zombie);
         }
     }
-    player=new Character(100, 300, 0, 0, 50, 50, 3, "images/player.png");
+    player=new Character(100, 300, 0, 0, 50, 50, 3, player_image);
     player.direction = "south";
             
     window.addEventListener("keydown",doKeyDown,true);

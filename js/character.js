@@ -1,4 +1,4 @@
-function Character(x,y,drawx,drawy,width,height,speed,image_name)
+function Character(x, y, drawx, drawy, width, height, speed, image)
 {
     this.x = x;
     this.y = y;
@@ -7,9 +7,7 @@ function Character(x,y,drawx,drawy,width,height,speed,image_name)
     this.width = width;
     this.height = height;
     this.speed = speed;
-    this.image_name = image_name;
-    this.character = new Image();
-    this.character.src = this.image_name;
+    this.character = image;
     this.Draw = function()
     {
         context.drawImage(this.character, this.drawx, this.drawy, 50, 50, 
