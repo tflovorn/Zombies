@@ -33,9 +33,9 @@ function Init_Game() {
             
     window.addEventListener("keydown",doKeyDown,true);
     window.addEventListener("keyup",doKeyUp,true);
-    canvas.addEventListener("mousedown", doMouseDown, false);
-    canvas.addEventListener("mouseup", doMouseUp, false);
-    canvas.addEventListener("mousemove", doMouseMove, false);
+    window.addEventListener("mousedown", doMouseDown, false);
+    window.addEventListener("mouseup", doMouseUp, false);
+    window.addEventListener("mousemove", doMouseMove, false);
 
     setInterval("Draw()", 10);
     setInterval("Update()", 10);
