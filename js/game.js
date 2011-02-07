@@ -17,7 +17,11 @@ function Init_Game() {
 
     // keys accepted as input need to be here to initialize them before they
     // get checked
-    keyDict = {"W": false, "S": false, "A": false, "D": false};
+    var keys_used = ["W", "S", "A", "D", "UP", "DOWN", "LEFT", "RIGHT"];
+    keyDict = {};
+    for (var i = 0; i < keys_used.length; i++) {
+        keyDict[keys_used[i]] = false;
+    }
             
     bullet_array = [];
 
@@ -55,7 +59,7 @@ function Init_Game() {
 function Update()
 {
     // setting player.drawx/drawy changes direction player image is facing
-    if(keyDict["W"])
+    if(keyDict["W"] || keyDict["UP"])
     {
         if (player.y - player.speed > 0){
             player.y -= player.speed ;
@@ -63,7 +67,7 @@ function Update()
         player.drawx=0;
         player.drawy=50;
     }
-    else if(keyDict["S"])
+    else if(keyDict["S"] || keyDict["DOWN"])
     {
         if (player.y + player.height + player.speed < HEIGHT){
             player.y += player.speed ;
@@ -71,7 +75,7 @@ function Update()
         player.drawx=0;
         player.drawy=0;
     }
-    else if(keyDict["A"])
+    else if(keyDict["A"] || keyDict["LEFT"])
     {
         if (player.x - player.speed > 0){
             player.x -= player.speed ;
@@ -79,7 +83,7 @@ function Update()
         player.drawx=0;
         player.drawy=100;
     }
-    else if(keyDict["D"])
+    else if(keyDict["D"] || keyDict["RIGHT"])
     {
         if (player.x + player.width + player.speed < WIDTH){
             player.x += player.speed ;
@@ -173,6 +177,19 @@ function getKeyValue(keyEvent) {
     else {
         keyCode = keyEvent.which;
     }
+    // special keys
+    switch (keyCode) {
+        // 37-40 [ascii %, &, ', (] are mapped to arrow keys
+        case 37:
+            return "LEFT";
+        case 38:
+            return "UP";
+        case 39:
+            return "RIGHT";
+        case 40:
+            return "DOWN";
+    }
+    // normal key
     return String.fromCharCode(keyCode);
 }
 
