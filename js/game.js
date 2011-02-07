@@ -15,13 +15,7 @@ function Init_Game() {
     
     mouse_down = false;
 
-    // keys accepted as input need to be here to initialize them before they
-    // get checked
-    var keys_used = ["W", "S", "A", "D", "UP", "DOWN", "LEFT", "RIGHT"];
     keyDict = {};
-    for (var i = 0; i < keys_used.length; i++) {
-        keyDict[keys_used[i]] = false;
-    }
             
     bullet_array = [];
 
