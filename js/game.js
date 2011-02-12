@@ -1,9 +1,3 @@
-/* 
- * Copyright (c) 2011 Jacob Hartin, Stephen Longfield, Tim Lovorn
- * Released under the MIT license.
- * http://www.opensource.org/licenses/mit-license.php
-*/
-
 window.addEventListener("load", Init_Game, false);
 
 var WIDTH = 800, HEIGHT = 480,
