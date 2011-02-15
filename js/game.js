@@ -164,7 +164,7 @@ function doKeyUp(evt) {
 function getKeyValue(keyEvent) {
     var keyCode;
     // IE support
-    if (event.which == undefined) {
+    if (keyEvent.which == undefined) {
         keyCode = keyEvent.keyCode;
     }
     // everyone else
