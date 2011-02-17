@@ -3,7 +3,7 @@ window.addEventListener("load", Init_Game, false);
 var WIDTH = 800, HEIGHT = 480,
     canvas, context, keyDict,
     bullet_array, bullet_image, zombie_array, player,
-    mouse_x, mouse_y, mouse_down;
+    mouse_x, mouse_y, mouse_down, score = 0, can_shoot=true;
 
 function Init_Game() {
     if (!document.createElement('canvas').getContext) {
@@ -12,6 +12,9 @@ function Init_Game() {
     }
     canvas = document.getElementById("game_canvas");
     context = canvas.getContext("2d");
+    context.font = 'bold 30px sans-serif';
+    context.textBaseline = 'top';
+    context.fillStyle = '#000000';
     
     mouse_down = false;
 
@@ -85,12 +88,14 @@ function Update()
         player.drawx=0;
         player.drawy=150;
     }
-    if (mouse_down)
+    if (mouse_down && can_shoot)
     {
         var bullet = new Bullet(player.x + player.width / 2, 
                                 player.y + player.height / 2, 
                                 mouse_x, mouse_y, 5, 5, 5, "images/bullet.png");
         bullet_array.push(bullet);
+	can_shoot=false;
+	setTimeout( function(){can_shoot=true;},100);
     }
     for (var i=0; i < zombie_array.length; ++i)
     {
@@ -111,6 +116,8 @@ function Update()
                 // remove the bullet
                 bullet_array.splice(i, 1);
                 bullet_alive = false;
+		//increase score
+		score += 10;
                 break;
             }
         }
@@ -123,6 +130,8 @@ function Update()
             bullet_array.splice(i, 1);
         }
     }
+    
+    context.fillText("Score: " + score, 10, 10);
 }
 
 function Draw() {   
