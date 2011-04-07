@@ -116,8 +116,8 @@ function Update()
                 // remove the bullet
                 bullet_array.splice(i, 1);
                 bullet_alive = false;
-		//increase score
-		score += 10;
+        		//increase score
+		        score += 10;
                 break;
             }
         }
@@ -131,7 +131,6 @@ function Update()
         }
     }
     
-    context.fillText("Score: " + score, 10, 10);
 }
 
 function Draw() {   
@@ -146,6 +145,8 @@ function Draw() {
     {
         bullet_array[i].Draw();
     }
+
+    context.fillText("Score: " + score, 10, 10);
 }
 
 function Intersects(first,second)
